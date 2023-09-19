@@ -11,10 +11,8 @@ object HuggingFaceQaInference {
     @Throws(IOException::class, TranslateException::class, ModelException::class)
     @JvmStatic
     fun main(args: Array<String>) {
-        val question = "When did BBC Japan start broadcasting?"
-        val paragraph = ("BBC Japan was a general entertainment Channel. "
-                + "Which operated between December 2004 and April 2006. "
-                + "It ceased operations after its Japanese distributor folded.")
+        val question = "What was the movement co-founded by Pablo Picasso?"
+        val paragraph = ("Pablo Ruiz Picasso was a Spanish painter, sculptor, printmaker, ceramicist and theatre designer who spent most of his adult life in France. One of the most influential artists of the 20th century, he is known for co-founding the Cubist movement, the invention of constructed sculpture, the co-invention of collage, and for the wide variety of styles that he helped develop and explore.")
         val input = QAInput(question, paragraph)
         val answer = qaPredict(input)
         println("The answer is: \n$answer")
