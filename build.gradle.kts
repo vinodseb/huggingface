@@ -19,6 +19,12 @@ dependencies {
     implementation("ai.djl.pytorch:pytorch-model-zoo:0.22.1")
 
     implementation("com.github.jknack:handlebars:4.3.1")
+
+    testImplementation(kotlin("test"))
+}
+
+tasks.test {
+    useJUnitPlatform()
 }
 
 application {
