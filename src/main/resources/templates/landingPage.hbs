@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>HTML Form</title>
+</head>
+<body>
+<h1>Huggingface QA</h1>
+
+<form method="post" action="/">
+    <div><label>Paragraph</label></div>
+    <div>
+        <textarea rows="20" cols="100" name="paragraph">{{paragraph}}</textarea>
+    </div>
+    <div><label>Question</label></div>
+    <div>
+        <textarea rows="4" cols=100" name="question">{{question}}</textarea>
+    </div>
+    <div>
+        <input type="submit" value="Submit">
+    </div>
+    <div>Answer: {{answer}}</div>
+</form>
+</body>
+</html>
