@@ -17,6 +17,8 @@ dependencies {
     implementation("ai.djl:api:0.22.1")
     implementation("ai.djl.pytorch:pytorch-engine:0.22.1")
     implementation("ai.djl.pytorch:pytorch-model-zoo:0.22.1")
+
+    implementation("com.github.jknack:handlebars:4.3.1")
 }
 
 application {

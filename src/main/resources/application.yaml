@@ -1,0 +1,10 @@
+ktor:
+  development: true
+  deployment:
+    port: "$PORT:8080"
+    watch:
+      - classes
+      - resources
+  application:
+    modules:
+      - com.vinodseb.huggingface.ApplicationKt.module
