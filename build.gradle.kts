@@ -28,5 +28,5 @@ tasks.test {
 }
 
 application {
-    mainClass.set("com.vinodseb.mltest.ApplicationKt")
+    mainClass.set("com.vinodseb.huggingface.ApplicationKt")
 }
