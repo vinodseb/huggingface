@@ -15,7 +15,7 @@ import java.nio.file.Path
 import java.nio.file.Paths
 import java.util.*
 
-class BertTranslator : Translator<QAInput?, String?> {
+class BertTranslator : Translator<QAInput, String> {
     private lateinit var tokens: List<String>
     private lateinit var vocabulary: Vocabulary
     private lateinit var tokenizer: BertTokenizer
@@ -34,30 +34,30 @@ class BertTranslator : Translator<QAInput?, String?> {
         tokenizer = BertTokenizer()
     }
 
-    override fun processInput(ctx: TranslatorContext?, input: QAInput?): NDList {
+    override fun processInput(ctx: TranslatorContext, input: QAInput): NDList {
 
         val token: BertToken = tokenizer.encode(
-            input?.question?.lowercase(Locale.getDefault()).orEmpty(),
-            input?.paragraph?.lowercase(Locale.getDefault()).orEmpty()
+            input.question.lowercase(Locale.getDefault()),
+            input.paragraph.lowercase(Locale.getDefault())
         )
 
         // get the encoded tokens that would be used in processOutput
         tokens = token.tokens
-        val manager: NDManager? = ctx?.ndManager
+        val manager: NDManager = ctx.ndManager
 
         // map the tokens(String) to indices(long)
         val indices: LongArray = tokens.stream().mapToLong(vocabulary::getIndex).toArray()
         val attentionMask: LongArray = token.attentionMask.stream().mapToLong { i -> i }.toArray()
         val tokenType: LongArray = token.tokenTypes.stream().mapToLong { i -> i }.toArray()
-        val indicesArray: NDArray? = manager?.create(indices)
-        val attentionMaskArray: NDArray? = manager?.create(attentionMask)
-        val tokenTypeArray: NDArray? = manager?.create(tokenType)
+        val indicesArray: NDArray? = manager.create(indices)
+        val attentionMaskArray: NDArray? = manager.create(attentionMask)
+        val tokenTypeArray: NDArray? = manager.create(tokenType)
 
         // The order matters
         return NDList(indicesArray, attentionMaskArray, tokenTypeArray)
     }
 
-    override fun processOutput(ctx: TranslatorContext?, list: NDList): String? {
+    override fun processOutput(ctx: TranslatorContext, list: NDList): String {
         val startLogits: NDArray = list[0]
         val endLogits: NDArray = list[1]
         val startIdx = startLogits.argMax().getLong().toInt()
